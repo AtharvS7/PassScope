@@ -14,9 +14,11 @@ const dictionaryWords = [
 const passwordInput = document.getElementById('passwordInput');
 const toggleVisibility = document.getElementById('toggleVisibility');
 const resetBtn = document.getElementById('resetBtn');
+const copyBtn = document.getElementById('copyBtn');
 const strengthBar = document.getElementById('strengthBar');
 const strengthText = document.getElementById('strengthText');
 const scoreValue = document.getElementById('scoreValue');
+const entropyValue = document.getElementById('entropyValue');
 const crackTime = document.getElementById('crackTime');
 const hackProbability = document.getElementById('hackProbability');
 const tipsSection = document.getElementById('tipsSection');
@@ -34,6 +36,27 @@ toggleVisibility.addEventListener('click', () => {
 resetBtn.addEventListener('click', () => {
   passwordInput.value = '';
   analyzePassword('');
+});
+
+copyBtn.addEventListener('click', async () => {
+  const password = passwordInput.value;
+  if (!password) return;
+  
+  try {
+    await navigator.clipboard.writeText(password);
+    // Provide visual feedback
+    const originalIcon = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    setTimeout(() => {
+      copyBtn.innerHTML = originalIcon;
+    }, 2000);
+  } catch (err) {
+    // Fallback for older browsers
+    passwordInput.select();
+    document.execCommand('copy');
+    passwordInput.blur();
+    alert('Password copied to clipboard');
+  }
 });
 
 passwordInput.addEventListener('input', (e) => {
@@ -188,9 +211,11 @@ function updateUI(result, password) {
 
   if (password) {
     const entropy = calculateEntropy(password);
+    entropyValue.textContent = entropy;
     crackTime.textContent = estimateCrackTime(entropy);
     hackProbability.textContent = calculateHackProbability(score);
   } else {
+    entropyValue.textContent = '0';
     crackTime.textContent = '--';
     hackProbability.textContent = '--';
   }
@@ -224,7 +249,7 @@ const hideHelpTooltip = () => {
 
 // Toggle tooltip on click
 helpBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // Prevent document click from triggering immediately
+  e.stopPropagation();
   helpTooltip.classList.toggle('active');
 });
 

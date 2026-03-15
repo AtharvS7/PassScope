@@ -65,6 +65,67 @@
       </footer>
     </div>
   </div>
+  
+  <!-- Help Button -->
+  <button class="help-btn" id="helpBtn" aria-label="Show password strength formula">
+    ?
+  </button>
+
+  <!-- Tooltip/Explanation Panel -->
+  <div class="help-tooltip" id="helpTooltip">
+    <div class="help-content">
+      <h3>How Password Strength is Calculated</h3>
+      <div class="formula-section">
+        <h4>Scoring Model (Max: 100 points)</h4>
+        
+        <div class="rule-group">
+          <h5>Length Points:</h5>
+          <ul>
+            <li>Length ≥ 12 characters → +20 points</li>
+            <li>Length ≥ 8 characters → +10 points</li>
+          </ul>
+        </div>
+        
+        <div class="rule-group">
+          <h5>Character Diversity (+10 each):</h5>
+          <ul>
+            <li>Contains uppercase letters</li>
+            <li>Contains lowercase letters</li>
+            <li>Contains numbers</li>
+            <li>Contains special characters</li>
+          </ul>
+        </div>
+        
+        <div class="rule-group">
+          <h5>Penalties:</h5>
+          <ul>
+            <li>Repeated characters (aaa, 111) → -10</li>
+            <li>Common password detected → -15</li>
+            <li>Dictionary word detected → -10</li>
+            <li>Low character uniqueness → -10</li>
+          </ul>
+        </div>
+        
+        <div class="rule-group">
+          <h5>Final Score:</h5>
+          <p><strong>Formula:</strong> Final Score = Sum of all bonuses − penalties</p>
+          <p><strong>Range:</strong> 0–100</p>
+        </div>
+        
+        <div class="rule-group">
+          <h5>Strength Levels:</h5>
+          <ul>
+            <li>0–19 → Very Weak</li>
+            <li>20–39 → Weak</li>
+            <li>40–59 → Moderate</li>
+            <li>60–79 → Strong</li>
+            <li>80–100 → Very Strong</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <script src="script.js"></script>
 </body>
 </html>

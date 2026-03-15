@@ -202,3 +202,50 @@ function updateUI(result, password) {
     tipsSection.classList.add('hidden');
   }
 }
+
+// Help Button Functionality
+const helpBtn = document.getElementById('helpBtn');
+const helpTooltip = document.getElementById('helpTooltip');
+
+let tooltipTimeout;
+
+// Show tooltip on hover or click
+const showHelpTooltip = () => {
+  helpTooltip.classList.add('active');
+  clearTimeout(tooltipTimeout);
+};
+
+// Hide tooltip after delay when not hovering
+const hideHelpTooltip = () => {
+  tooltipTimeout = setTimeout(() => {
+    helpTooltip.classList.remove('active');
+  }, 300);
+};
+
+// Toggle tooltip on click
+helpBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevent document click from triggering immediately
+  helpTooltip.classList.toggle('active');
+});
+
+// Show tooltip on hover
+helpBtn.addEventListener('mouseenter', showHelpTooltip);
+helpBtn.addEventListener('mouseleave', hideHelpTooltip);
+
+// Also show tooltip on focus (keyboard accessibility)
+helpBtn.addEventListener('focus', showHelpTooltip);
+helpBtn.addEventListener('blur', hideHelpTooltip);
+
+// Hide tooltip when clicking outside
+document.addEventListener('click', (e) => {
+  if (!helpTooltip.contains(e.target) && !helpBtn.contains(e.target)) {
+    helpTooltip.classList.remove('active');
+  }
+});
+
+// Prevent tooltip from hiding when interacting with it
+helpTooltip.addEventListener('mouseenter', () => {
+  clearTimeout(tooltipTimeout);
+});
+
+helpTooltip.addEventListener('mouseleave', hideHelpTooltip);

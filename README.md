@@ -1,7 +1,3 @@
-Here is a **clean `README.md` file** you can directly paste into your repository. No YAML, just the actual README content.
-
----
-
 # PassScope 🔐
 
 **PassScope** is a lightweight client-side password strength analyzer that evaluates the security of a password in real time. It provides a strength score, estimated crack time, and suggestions to help users create stronger passwords.
